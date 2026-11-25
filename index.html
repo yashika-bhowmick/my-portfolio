@@ -1,0 +1,970 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Yashika Bhowmick: aspiring software developer building projects with Python, Flask and Django.">
+  <title>Yashika Bhowmick</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%BC%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #F8F3EA;
+      --alt: #EFE7DA;
+      --surface: #FFFEFB;
+      --text: #292823;
+      --body: #4F4C45;
+      --muted: #7A756C;
+      --line: #E0D5C5;
+      --accent: #A95338;
+      --accent-soft: #F1E0D5;
+      --green: #697765;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --max-width: 1120px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #211F1C;
+      --alt: #292622;
+      --surface: #2C2925;
+      --text: #F3EFE8;
+      --body: #D3CCC1;
+      --muted: #A39A8F;
+      --line: #454039;
+      --accent: #D58A6D;
+      --accent-soft: #40312B;
+      --green: #A4B39A;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.75;
+      overflow-x: hidden;
+      transition: background .25s, color .25s;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    img { display: block; max-width: 100%; }
+
+    .container { width: min(var(--max-width), calc(100% - 64px)); margin: 0 auto; }
+
+    /* NAVIGATION */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--bg);
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s;
+    }
+    .header.scrolled { border-color: var(--line); }
+
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+
+    .logo { font-family: var(--serif); font-size: 26px; font-weight: 600; letter-spacing: -1px; white-space: nowrap; }
+    .logo span { color: var(--accent); }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--body); font-size: 14.5px; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .theme-button {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 17px;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: center;
+      gap: 80px;
+      padding-top: 60px;
+      padding-bottom: 85px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+    }
+    .eyebrow::before { content: ""; width: 30px; height: 1px; background: var(--accent); }
+    #greet, #love { transition: opacity .3s; }
+
+    .hero h1 {
+      max-width: 660px;
+      font-family: var(--serif);
+      font-size: clamp(40px, 4.8vw, 62px);
+      font-weight: 500;
+      letter-spacing: -1.5px;
+      line-height: 1.16;
+    }
+    .hero h1 .name { color: var(--accent); }
+
+    .hero-role { color: var(--green); font-size: 19px; margin-top: 24px; font-weight: 500; }
+    .love { color: var(--accent); border-bottom: 1px solid var(--accent); }
+
+    .hero-description { max-width: 540px; color: var(--body); font-size: 18px; line-height: 1.85; margin-top: 16px; }
+
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; margin-top: 32px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 24px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      font-size: 14.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary { background: var(--accent); border-color: var(--accent); color: #FFFFFF; }
+    .button.primary:hover { background: #91452F; }
+    .button.secondary { background: transparent; color: var(--text); }
+    .button.secondary:hover { border-color: var(--accent); }
+
+    .hero-social { display: flex; gap: 25px; margin-top: 28px; }
+    .hero-social a { color: var(--muted); font-size: 14.5px; border-bottom: 1px solid var(--line); padding-bottom: 3px; }
+    .hero-social a:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* HERO PHOTO */
+    .hero-photo { justify-self: center; width: min(100%, 330px); }
+    .photo-wrap { position: relative; }
+    .photo-wrap::before { content: ""; position: absolute; inset: 0; background: var(--accent-soft); transform: translate(14px, 14px); }
+    .photo-frame { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--accent-soft); border: 1px solid var(--line); }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; }
+    .photo-caption { margin-top: 30px; color: var(--green); font-family: var(--serif); font-size: 17px; font-style: italic; text-align: center; }
+
+    /* STRIP */
+    .strip {
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 16px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: 19px;
+      margin-bottom: 40px;
+    }
+    .strip div { display: inline-block; animation: slide 34s linear infinite; }
+    .strip span { margin: 0 22px; }
+    @keyframes slide { to { transform: translateX(-50%); } }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 0 12px;
+      margin-bottom: 90px;
+    }
+    .stat { padding: 30px 28px; border-left: 1px solid var(--line); }
+    .stat:first-child { border-left: 0; }
+    .stat b { display: block; font-family: var(--serif); font-weight: 500; font-size: clamp(32px, 3.6vw, 44px); line-height: 1.1; color: var(--accent); }
+    .stat span { color: var(--muted); font-size: 14.5px; }
+
+    /* SECTIONS */
+    section.content-section { padding: 95px 0; }
+    #about { background: var(--alt); }
+    #skills { background: var(--bg); }
+    #projects { background: var(--alt); }
+    #journey { background: var(--bg); }
+    #beyond { background: var(--alt); }
+    #contact { background: var(--bg); padding-bottom: 105px; }
+
+    .section-label { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+    .section-title { font-family: var(--serif); font-size: clamp(34px, 4vw, 46px); font-weight: 400; letter-spacing: -1px; line-height: 1.25; margin-top: 12px; }
+    .section-intro { max-width: 620px; color: var(--body); font-size: 17px; margin-top: 13px; line-height: 1.85; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1.4fr .8fr; gap: 75px; align-items: start; margin-top: 40px; }
+    .about-story p { color: var(--body); font-size: 17px; line-height: 1.95; margin-bottom: 20px; }
+
+    .my-world { background: var(--surface); border: 1px solid var(--line); padding: 29px; }
+    .my-world .section-label { display: block; margin-bottom: 8px; }
+    .my-world h3 { font-family: var(--serif); font-size: 23px; font-weight: 500; }
+    .my-world > p { color: var(--muted); font-size: 15px; margin: 4px 0 18px; }
+    .interest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .interest-card { background: var(--bg); border: 1px solid var(--line); }
+    .interest-card img { width: 100%; height: 155px; object-fit: cover; object-position: center; display: block; }
+    .interest-card span { display: block; padding: 8px 12px; font-size: 13.5px; color: var(--body); }
+    .world-footer { margin-top: 18px; color: var(--green); font-family: var(--serif); font-style: italic; font-size: 16px; }
+
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 40px; }
+    .skill-card { background: var(--surface); border: 1px solid var(--line); padding: 26px 28px; }
+    .skill-card h3 { font-family: var(--serif); font-size: 22px; font-weight: 500; margin-bottom: 17px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 9px; }
+    .tag { display: inline-block; padding: 6px 13px; border: 1px solid var(--line); background: var(--surface); color: var(--body); font-size: 14px; }
+
+    .soft-skills { margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--line); }
+    .soft-skills .section-label { display: block; margin-bottom: 4px; }
+    .soft-skills h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; margin-bottom: 16px; }
+
+    /* PROJECTS */
+    .projects-list { margin-top: 40px; border-top: 1px solid var(--line); }
+    .project { display: grid; grid-template-columns: 110px 1fr auto; gap: 28px; padding: 34px 0; border-bottom: 1px solid var(--line); }
+    .project-number { color: var(--accent); font-family: var(--serif); font-size: 16px; padding-top: 8px; }
+    .project-content h3 { font-family: var(--serif); font-size: 27px; font-weight: 500; margin-bottom: 9px; }
+    .project-content > p { max-width: 760px; color: var(--body); font-size: 16.5px; line-height: 1.85; }
+    .project-content .key-features { margin-top: 12px; font-size: 15.5px; }
+    .project .tags { margin-top: 18px; }
+    .project-links { display: flex; flex-wrap: wrap; gap: 23px; margin-top: 20px; }
+    .project-links a { color: var(--accent); font-size: 14.5px; font-weight: 500; }
+    .project-links a:hover { text-decoration: underline; }
+    .project-shot { width: 230px; height: 150px; overflow: hidden; border: 1px solid var(--line); background: var(--accent-soft); }
+    .project-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+    /* JOURNEY */
+    .timeline { margin-top: 40px; border-top: 1px solid var(--line); }
+    .timeline-item { display: grid; grid-template-columns: 200px 1fr; gap: 35px; padding: 30px 0; border-bottom: 1px solid var(--line); }
+    .timeline-date { color: var(--accent); font-size: 14.5px; font-weight: 500; padding-top: 6px; }
+    .timeline-content h3 { font-family: var(--serif); font-size: 23px; font-weight: 500; }
+    .timeline-content p { color: var(--body); font-size: 16.5px; line-height: 1.85; margin-top: 9px; max-width: 700px; }
+    .timeline-content p.organization { color: var(--accent); font-size: 15px; margin-top: 4px; }
+    .timeline-content p.muted { color: var(--muted); }
+    .timeline-content .sub-education { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line); }
+
+    /* BEYOND CODE */
+    .interests-list { margin-top: 40px; border-top: 1px solid var(--line); }
+    .interest { display: grid; grid-template-columns: 55px 230px 1fr auto; gap: 22px; padding: 28px 0; align-items: center; border-bottom: 1px solid var(--line); }
+    .interest-number { color: var(--muted); font-family: var(--serif); font-size: 18px; }
+    .interest h3 { font-family: var(--serif); font-size: 22px; font-weight: 500; }
+    .interest p { color: var(--body); font-size: 16px; line-height: 1.8; }
+    .interest-tags { display: block; margin-top: 8px; color: var(--muted); font-family: var(--serif); font-style: italic; font-size: 15.5px; }
+    .interest-photo { width: 190px; height: 125px; overflow: hidden; border: 1px solid var(--line); background: var(--accent-soft); }
+    .interest-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .moments-label { margin-top: 64px; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 18px; }
+    .gallery figure { margin: 0; }
+    .gallery .ph { aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid var(--line); background: var(--accent-soft); }
+    .gallery .ph img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery figcaption { margin-top: 9px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    /* CONTACT */
+    .contact-box { display: flex; align-items: center; justify-content: space-between; gap: 35px; margin-top: 35px; padding: 32px; background: var(--surface); border: 1px solid var(--line); }
+    .contact-email { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 26px); color: var(--accent); overflow-wrap: anywhere; }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* FOOTER */
+    footer { background: var(--alt); padding: 26px 0; color: var(--muted); font-size: 14px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    footer a:hover { color: var(--accent); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(15px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .toast { position: fixed; bottom: 25px; left: 50%; transform: translate(-50%, 15px); background: var(--text); color: var(--bg); padding: 10px 18px; font-size: 14px; opacity: 0; pointer-events: none; transition: .2s; z-index: 50; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 950px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .interest { grid-template-columns: 55px 1fr; }
+      .interest-body, .interest-photo { grid-column: 2; }
+      .interest-photo { width: 100%; max-width: 320px; }
+      .project { grid-template-columns: 110px 1fr; }
+      .project-shot { grid-column: 2; width: 100%; max-width: 360px; height: 180px; }
+    }
+
+    @media (max-width: 850px) {
+      .container { width: min(100% - 40px, var(--max-width)); }
+      .nav { align-items: flex-start; padding: 18px 0; }
+      .nav-links { justify-content: flex-end; flex-wrap: wrap; gap: 12px 18px; }
+      .hero { min-height: auto; grid-template-columns: 1fr; gap: 60px; padding: 60px 0 75px; }
+      .hero-photo { justify-self: start; width: min(100%, 300px); }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(3) { border-left: 0; }
+      .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+      .stat { padding: 22px 20px; }
+      .contact-box { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 600px) {
+      .container { width: calc(100% - 36px); }
+      .nav { flex-direction: column; gap: 13px; }
+      .nav-links { justify-content: flex-start; gap: 12px 16px; }
+      .nav-links a { font-size: 13.5px; }
+      .hero { padding: 45px 0 65px; }
+      .hero h1 { font-size: 40px; letter-spacing: -1px; }
+      section.content-section { padding: 68px 0; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .project { grid-template-columns: 1fr; gap: 8px; }
+      .project-shot { grid-column: 1; }
+      .project-number { padding-top: 0; }
+      .timeline-item { grid-template-columns: 1fr; gap: 7px; }
+      .interest { grid-template-columns: 35px 1fr; gap: 8px 13px; }
+      .contact-box { padding: 22px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+    } catch (error) {}
+  </script>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container nav">
+      <a href="#home" class="logo">Yashika<span>.</span></a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#beyond">My Interests</a>
+        <a href="#contact">Contact</a>
+        <button class="theme-button" id="themeButton" aria-label="Switch light or dark mode">☼</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="container hero" id="home">
+      <div class="hero-content">
+        <p class="eyebrow"><span id="greet">Hello</span>, nice to meet you</p>
+
+        <h1>I’m <span class="name">Yashika</span>,  a curious learner exploring science, technology and new ideas.</h1>
+
+        <p class="hero-role">
+          aspiring software developer who loves
+          <span class="love" id="love">dancing</span>
+        </p>
+
+        <p class="hero-description">
+          I’m a Biology student and software programming learner who enjoys
+          exploring how things work, learning new technologies, solving problems
+          and turning ideas into something meaningful.
+        </p>
+
+        <div class="actions">
+          <a href="#projects" class="button primary">See what I’ve built</a>
+          <a href="https://drive.google.com/file/d/1g3LY94IJAkU0H4UD1OQjP26kpxz5ROlj/view?usp=sharing"
+             class="button secondary" target="_blank" rel="noopener noreferrer">View resume</a>
+        </div>
+
+        <div class="hero-social">
+          <a href="https://github.com/yashika-bhowmick" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/yashika-bhowmick-6b2085448/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        </div>
+      </div>
+
+      <figure class="hero-photo">
+        <div class="photo-wrap">
+          <div class="photo-frame">
+            <img src="images/image.jpeg" alt="My photograph">
+          </div>
+        </div>
+        <figcaption class="photo-caption">a little glimpse of me ♡</figcaption>
+      </figure>
+    </section>
+
+    <!-- STRIP -->
+    <div class="container">
+      <div class="strip" aria-hidden="true">
+        <div>
+          <span>Python</span>✦<span>Flask</span>✦<span>Django</span>✦<span>Dancing</span>✦<span>Travelling</span>✦<span>Git and GitHub</span>✦<span>Always learning</span>✦
+          <span>Python</span>✦<span>Flask</span>✦<span>Django</span>✦<span>Dancing</span>✦<span>Travelling</span>✦<span>Git and GitHub</span>✦<span>Always learning</span>✦
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="container reveal">
+      <div class="stats">
+        <div class="stat"><b>3</b><span>projects built</span></div>
+        <div class="stat"><b>2</b><span>live demos online</span></div>
+        <div class="stat"><b>50+</b><span>students supported</span></div>
+        <div class="stat"><b>10 month</b><span>as a student coordinator</span></div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="content-section reveal" id="about">
+      <div class="container">
+        <p class="section-label">get to know me</p>
+        <h2 class="section-title">About me</h2>
+
+        <div class="about-grid">
+          <div class="about-story">
+            <p>
+              I am currently pursuing a B.Sc. in Biology and learning software
+              programming at NavGurukul. I am curious about the world around me,
+              especially nature, science, and understanding how things work.
+              Alongside my studies, I enjoy exploring different areas of learning
+              and discovering new interests.
+            </p>
+
+            <p>
+              As a student at NavGurukul, I took on additional responsibilities by
+              serving as a Programming Coordinator and a Life Skills Coordinator.
+              In these roles, I supported fellow students in their programming
+              journey, encouraged collaborative learning, and organized English
+              activities to help students practise communication in a comfortable
+              environment. Taking on these responsibilities, meeting new people,
+              and being part of different activities taught me teamwork, patience,
+              empathy, and leadership. These experiences also helped me become
+              more confident, take initiative, and understand different perspectives.
+            </p>
+
+            <p>
+              Alongside this, I am exploring software development, learning Python,
+              and building practical projects. Beyond academics and coding, I enjoy
+              dancing, listening to music, travelling, spending time in nature, and
+              going on adventures. I love exploring new things and making memories
+              through different experiences.
+            </p>
+          </div>
+
+          <div class="my-world">
+            <span class="section-label">beyond the everyday</span>
+            <h3>A little world of mine ✿</h3>
+            <p>Things that make my days a little more special.</p>
+
+            <div class="interest-grid">
+              <div class="interest-card">
+                <img src="images/music.jpg" alt="Dancing" onerror="this.closest('.interest-card').remove()">
+                <span>Dancing &amp; music ♫</span>
+              </div>
+              <div class="interest-card">
+                <img src="images/adventure.jpeg" alt="Travelling" onerror="this.closest('.interest-card').remove()">
+                <span>Little adventures ↗</span>
+              </div>
+              <div class="interest-card">
+                <img src="images/explore.jpg" alt="Adventure" onerror="this.closest('.interest-card').remove()">
+                <span>Always exploring ✿</span>
+              </div>
+              <div class="interest-card">
+                <img src="images/making_memories.jpeg" alt="Memorable experiences" onerror="this.closest('.interest-card').remove()">
+                <span>Making memories ♡</span>
+              </div>
+            </div>
+
+            <p class="world-footer">Collecting moments, not just things.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="content-section reveal" id="skills">
+      <div class="container">
+        <p class="section-label">my toolkit</p>
+        <h2 class="section-title">Skills and technologies</h2>
+
+        <p class="section-intro">Technologies I've explored, used in projects, and am continuing to learn.</p>
+
+        <div class="skills-grid">
+          <article class="skill-card">
+            <h3>Programming</h3>
+            <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span></div>
+          </article>
+
+          <article class="skill-card">
+            <h3>Web development</h3>
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Flask</span><span class="tag">Django</span></div>
+          </article>
+
+          <article class="skill-card">
+            <h3>Databases</h3>
+            <div class="tags"><span class="tag">MySQL</span></div>
+          </article>
+
+          <article class="skill-card">
+            <h3>Tools</h3>
+            <div class="tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">VS Code</span><span class="tag">Canva</span></div>
+          </article>
+        </div>
+
+        <article class="skill-card soft-skills">
+          <span class="section-label">beyond the technical</span>
+          <h3>Soft Skills</h3>
+          <div class="tags">
+            <span class="tag">Self-Learning</span>
+            <span class="tag">Communication</span>
+            <span class="tag">Teamwork</span>
+            <span class="tag">Student Coordination</span>
+            <span class="tag">Leadership</span>
+            <span class="tag">Adaptability</span>
+            <span class="tag">Problem-solving</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="content-section reveal" id="projects">
+      <div class="container">
+        <p class="section-label">what I’ve built</p>
+        <h2 class="section-title">Featured projects</h2>
+
+        <p class="section-intro">Each one taught me something new. Here’s what they do.</p>
+
+        <div class="projects-list">
+
+          <!-- Project 01 -->
+          <article class="project">
+            <div class="project-number">project 01</div>
+
+            <div class="project-content">
+              <h3>AI Resume Checker</h3>
+              <p>A web app built with Python and Flask that uses Gemini AI to analyze resumes and give feedback, so users can see their strengths and what to improve.</p>
+              <p class="key-features"><strong>Key features:</strong> user authentication, PDF and DOCX resume extraction, AI-powered analysis, and a dashboard for previous reports.</p>
+
+              <div class="tags">
+                <span class="tag">Python</span>
+                <span class="tag">Flask</span>
+                <span class="tag">Gemini AI</span>
+                <span class="tag">SQL</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://github.com/yashika-bhowmick/Ai-resume-checker" target="_blank" rel="noopener noreferrer">Source code ↗</a>
+                <a href="https://ai-resume-checker-3zm8.onrender.com" target="_blank" rel="noopener noreferrer">Live demo ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 02 -->
+          <article class="project">
+            <div class="project-number">project 02</div>
+
+            <div class="project-content">
+              <h3>Python Phone System Simulation</h3>
+              <p>A menu-driven console app I built on my own to practise object-oriented programming by simulating basic smartphone functions.</p>
+              <p class="key-features"><strong>Key features:</strong> phone lock and unlock, brightness control, mobile data, camera, messaging, contact calling, gallery access, and exception handling.</p>
+
+              <div class="tags">
+                <span class="tag">Python</span>
+                <span class="tag">OOP</span>
+                <span class="tag">JSON</span>
+                <span class="tag">File handling</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://github.com/yashika-bhowmick/python-phone-system" target="_blank" rel="noopener noreferrer">Source code ↗</a>
+              </div>
+            </div>
+
+            <div class="project-shot"><img src="images/project2.png" alt="Screenshot of Python Phone System Simulation" onerror="this.closest('.project-shot').remove()"></div>
+          </article>
+
+          <!-- Project 03 -->
+          <article class="project">
+            <div class="project-number">project 03</div>
+
+            <div class="project-content">
+              <h3>Django Learning Log</h3>
+              <p>A web app where registered users create topics and keep their own entries, with authentication and user-specific access.</p>
+              <p class="key-features"><strong>Key features:</strong> user registration and login, topic management, entry creation, and access control.</p>
+
+              <div class="tags">
+                <span class="tag">Python</span>
+                <span class="tag">Django</span>
+                <span class="tag">Database</span>
+                <span class="tag">Bootstrap</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://github.com/yashika-bhowmick/my-first-project" target="_blank" rel="noopener noreferrer">Source code ↗</a>
+                <a href="https://my-first-project-n5bz.onrender.com" target="_blank" rel="noopener noreferrer">Live demo ↗</a>
+              </div>
+            </div>
+
+            <div class="project-shot"><img src="images/project3.png" alt="Screenshot of Django Learning Log" onerror="this.closest('.project-shot').remove()"></div>
+          </article>
+
+          <!-- Project 04: Academic Presentation -->
+          <article class="project">
+            <div class="project-number">project 04 · academic presentation</div>
+
+            <div class="project-content">
+              <h3>GIS and Other Technologies in Forest</h3>
+
+              <p>
+                A Zoology presentation created using Gamma, exploring how
+                technologies like GIS, remote sensing, GPS, drones, and AI
+                are used in forest monitoring and wildlife conservation.
+              </p>
+
+              <div class="tags">
+                <span class="tag">Zoology</span>
+                <span class="tag">GIS</span>
+                <span class="tag">Remote Sensing</span>
+                <span class="tag">Gamma</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://drive.google.com/file/d/1_rAjXBfPn3iVvjF6b2gHbewqkgnqhHl4/view?usp=sharing"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  View Presentation ↗
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="content-section reveal" id="education">
+      <div class="container">
+        <p class="section-label">my academic journey</p>
+        <h2 class="section-title">Education</h2>
+
+        <p class="section-intro">
+          What I’m studying and the areas I’m exploring.
+        </p>
+
+        <div class="timeline">
+
+          <!-- NavGurukul first -->
+          <article class="timeline-item">
+            <div class="timeline-date">2025 – present</div>
+
+            <div class="timeline-content">
+              <h3>Diploma in Software Programming</h3>
+              <p class="organization">NavGurukul, Raigarh (C.G.)</p>
+              <p class="muted">
+                Learning programming and software development, including Python.
+              </p>
+            </div>
+          </article>
+
+          <!-- College education second -->
+          <article class="timeline-item">
+            <div class="timeline-date">currently pursuing</div>
+
+            <div class="timeline-content">
+              <h3>B.Sc. in Biology</h3>
+              <p class="organization">
+                Govt. Arts, Science and Commerce College, Dharamjaigarh, Raigarh
+              </p>
+              <p>
+                Shaheed Nandkumar Patel Vishwavidyalaya (SNPV), Raigarh (C.G.)
+              </p>
+              <p class="muted">5th semester · currently pursuing</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- VOLUNTEER EXPERIENCE -->
+    <section class="content-section reveal" id="experience">
+      <div class="container">
+        <p class="section-label">contributing and learning</p>
+        <h2 class="section-title">Volunteer & Leadership Experience</h2>
+
+        <p class="section-intro">
+          Taking responsibility, supporting others, and learning through
+          community involvement.
+        </p>
+
+        <div class="timeline">
+
+          <!-- Programming Coordinator -->
+          <article class="timeline-item">
+            <div class="timeline-date">Oct 2025 – Feb 2026</div>
+
+            <div class="timeline-content">
+              <h3>Programming Coordinator (Student)</h3>
+              <p class="organization">NavGurukul</p>
+
+              <p class="muted">
+                Supported 50+ students in their programming journey by
+                helping resolve doubts, guiding their learning, and
+                encouraging collaborative learning.
+              </p>
+
+              <div class="project-links">
+                <a href="https://drive.google.com/file/d/1Od96-wLmRc4V29IUgDGJbsEviLWYQzhC/view?usp=sharing"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  View Certificate ↗
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Life Skills Coordinator -->
+          <article class="timeline-item">
+            <div class="timeline-date">Mar 2026 – Jul 2026</div>
+
+            <div class="timeline-content">
+              <h3>Life Skills Coordinator (Student)</h3>
+              <p class="organization">NavGurukul</p>
+
+              <p class="muted">
+                Organized English activities for 50+ students and helped
+                create a comfortable environment where they could practise
+                communication and build confidence.
+              </p>
+
+              <div class="project-links">
+                <a href="https://drive.google.com/file/d/1X3O3T8m4zUKNiEjXAI0kkC44dqUteOr8/view?usp=sharing"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  View Certificate ↗
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- BEYOND CODE -->
+    <section class="content-section reveal" id="beyond">
+      <div class="container">
+        <p class="section-label">away from the screen</p>
+        <h2 class="section-title">Things I like to do</h2>
+
+        <p class="section-intro">The quiet things that keep me balanced and curious.</p>
+
+        <div class="interests-list">
+
+          <article class="interest">
+            <span class="interest-number">01</span>
+            <h3>Dancing</h3>
+            <div class="interest-body">
+              <p>Dancing makes me feel happy, energetic, and free. I also love listening to music because it instantly lifts my mood and makes everything feel better.</p>
+              <span class="interest-tags">Music · Energy · Happiness</span>
+            </div>
+          </article>
+
+          <article class="interest">
+            <span class="interest-number">02</span>
+            <h3>Travelling</h3>
+            <div class="interest-body">
+              <p>I love exploring new places, learning about their lifestyles, cultures, food, and people. Every new place gives me something different to discover.</p>
+              <span class="interest-tags">Exploration · Culture · Discovery</span>
+            </div>
+          </article>
+
+          <article class="interest">
+            <span class="interest-number">03</span>
+            <h3>Learning new things</h3>
+            <div class="interest-body">
+              <p>I enjoy learning new things because every experience teaches me something different and gives me something new to try. I love the feeling of discovering and improving myself.</p>
+              <span class="interest-tags">Curiosity · Learning · Growth</span>
+            </div>
+          </article>
+
+          <article class="interest">
+            <span class="interest-number">04</span>
+            <h3>Trying new experiences</h3>
+            <div class="interest-body">
+              <p>I like stepping out of my comfort zone and trying things I haven't done before. New experiences help me discover more about myself and make beautiful memories.</p>
+              <span class="interest-tags">Courage · Experiences · Memories</span>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="moments-label">Small moments</p>
+
+        <div class="gallery">
+          <figure>
+            <div class="ph"><img src="images/rocky.jpeg" alt="Rocky, a friendly dog resting his head against a yellow duck toy" style="object-position:center 45%" onerror="this.remove()"></div>
+            <figcaption>A new cutie, a new friend</figcaption>
+          </figure>
+          <figure>
+            <div class="ph"><img src="images/lantern-lane.jpeg" alt="Red paper lanterns glowing above a lane in the evening" style="object-position:center 22%" onerror="this.remove()"></div>
+            <figcaption>An evening of lanterns</figcaption>
+          </figure>
+          <figure>
+            <div class="ph"><img src="images/flower-garlands.jpeg" alt="A shop front hung with flower garlands" style="object-position:center 40%" onerror="this.remove()"></div>
+            <figcaption>A street in full bloom</figcaption>
+          </figure>
+          <figure>
+            <div class="ph"><img src="images/view.jpeg" alt="My morning view" style="object-position:center 35%" onerror="this.remove()"></div>
+            <figcaption>my morning view</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="content-section reveal" id="contact">
+      <div class="container">
+        <p class="section-label">let’s connect</p>
+        <h2 class="section-title">Say hello</h2>
+
+        <p class="section-intro">Thank you for visiting my portfolio. If you’d like to connect or share an opportunity, I’d be happy to hear from you.</p>
+
+        <div class="contact-box">
+          <a class="contact-email" href="mailto:yashikabhowmick25@navgurukul.org">yashikabhowmick25@navgurukul.org</a>
+
+          <div class="contact-actions">
+            <a class="button primary" href="mailto:yashikabhowmick25@navgurukul.org">Email me</a>
+            <button class="button secondary" id="copyEmail" type="button">Copy email</button>
+            <a class="button secondary" href="https://github.com/yashika-bhowmick" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            <a class="button secondary" href="https://www.linkedin.com/in/yashika-bhowmick-6b2085448/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Yashika Bhowmick. Made with care, curiosity, and a lot of debugging.</span>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status">Email copied</div>
+
+  <script>
+    // Current year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Header border on scroll
+    const header = document.getElementById("header");
+    window.addEventListener("scroll", () => {
+      header.classList.toggle("scrolled", window.scrollY > 10);
+    });
+
+    // Light and dark theme
+    const themeButton = document.getElementById("themeButton");
+    const root = document.documentElement;
+
+    function updateThemeButton() {
+      themeButton.textContent = root.getAttribute("data-theme") === "dark" ? "☾" : "☼";
+    }
+    updateThemeButton();
+
+    themeButton.addEventListener("click", () => {
+      const nextTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", nextTheme);
+      try { localStorage.setItem("portfolio-theme", nextTheme); } catch (error) {}
+      updateThemeButton();
+    });
+
+    // Reveal sections as they enter the screen
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+    // Active navigation link
+    const navLinks = document.querySelectorAll(".nav-links a");
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => {
+            link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: "-35% 0px -55% 0px" });
+    document.querySelectorAll("main section[id]").forEach((s) => sectionObserver.observe(s));
+
+    // Rotating greeting
+    const words = ["Hello", "नमस्ते", "Hola", "Hi there"];
+    const greet = document.getElementById("greet");
+    let wi = 0;
+    setInterval(() => {
+      greet.style.opacity = 0;
+      setTimeout(() => {
+        wi = (wi + 1) % words.length;
+        greet.textContent = words[wi];
+        greet.style.opacity = 1;
+      }, 300);
+    }, 2400);
+
+    // Rotating "who loves ..." word
+    const loves = ["dancing", "travelling", "learning new things", "building in Python"];
+    const loveEl = document.getElementById("love");
+    let li = 0;
+    setInterval(() => {
+      loveEl.style.opacity = 0;
+      setTimeout(() => {
+        li = (li + 1) % loves.length;
+        loveEl.textContent = loves[li];
+        loveEl.style.opacity = 1;
+      }, 300);
+    }, 2600);
+
+    // Copy email
+    const copyButton = document.getElementById("copyEmail");
+    const toast = document.getElementById("toast");
+
+    copyButton.addEventListener("click", async () => {
+      const email = "yashikabhowmick25@navgurukul.org";
+      try {
+        await navigator.clipboard.writeText(email);
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 1800);
+      } catch (error) {
+        window.location.href = "mailto:" + email;
+      }
+    });
+  </script>
+
+</body>
+</html>
